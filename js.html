@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Greeting & Clock</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #c8a96e;
+      --accent-dim: #7a6240;
+      --text: #e8e4d9;
+      --text-muted: #6b6760;
+      --glow: rgba(200, 169, 110, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* Radial glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* Decorative line */
+    .rule {
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 0 auto 2.5rem;
+      opacity: 0.6;
+    }
+
+    /* Greeting */
+    .greeting-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    #greeting {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    /* Clock card */
+    .clock-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem 2.5rem;
+      display: inline-block;
+      position: relative;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    /* Corner accents */
+    .clock-card::before,
+    .clock-card::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+    .clock-card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+    .clock-card::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+    .date-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    #date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .time-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    #time {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    /* Name input section */
+    .name-section {
+      margin-top: 2.5rem;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .name-section label {
+      display: block;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    #nameInput {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.6rem 1rem;
+      border-radius: 2px;
+      outline: none;
+      width: 200px;
+      transition: border-color 0.2s;
+    }
+    #nameInput:focus { border-color: var(--accent-dim); }
+    #nameInput::placeholder { color: var(--text-muted); }
+
+    button {
+      background: transparent;
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      text-transform: uppercase;
+    }
+    button:hover { background: var(--glow); border-color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="rule"></div>
+
+  <p class="greeting-label">Welcome</p>
+  <div id="greeting">Good day!</div>
+
+  <div class="clock-card">
+    <p class="date-label">Date</p>
+    <div id="date">—</div>
+    <p class="time-label">Time</p>
+    <div id="time">—</div>
+  </div>
+
+  <div class="name-section">
+    <label for="nameInput">Enter your name</label>
+    <div class="input-row">
+      <input type="text" id="nameInput" placeholder="e.g. Alex" />
+      <button onclick="applyGreeting()">Greet</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── Greeting ─────────────────────────────── */
+  function greetings(name) {
+    var fname = name.trim() || "Guest";
+    var hour  = new Date().getHours();
+    var period;
+
+    if (hour < 12)      period = "Good morning";
+    else if (hour < 17) period = "Good afternoon";
+    else                period = "Good evening";
+
+    return period + ", " + fname + "!";
+  }
+
+  function applyGreeting() {
+    var name = document.getElementById('nameInput').value;
+    document.getElementById('greeting').textContent = greetings(name);
+  }
+
+  /* ── Live Clock ───────────────────────────── */
+  function startTime() {
+    var today   = new Date();
+    var day     = today.getDate();
+    var month   = today.getMonth();
+    var months  = ["January","February","March","April","May","June",
+                   "July","August","September","October","November","December"];
+    month = months[month];
+
+    var year    = today.getFullYear();
+    var hours   = today.getHours();
+    var minutes = today.getMinutes();
+    var seconds = today.getSeconds();
+    var weekday = today.getDay();
+    var weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    weekday = weekdays[weekday];
+
+    // Zero-pad helper
+    function pad(n) { return n < 10 ? "0" + n : n; }
+
+    document.getElementById('date').innerHTML =
+      weekday + ", " + month + " " + day + ", " + year;
+
+    document.getElementById('time').innerHTML =
+      pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+
+    setTimeout(startTime, 1000);
+  }
+
+  // Kick off on load
+  startTime();
+  document.getElementById('greeting').textContent = greetings("Guest");
+
+  // Also allow Enter key in input
+  document.getElementById('nameInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') applyGreeting();
+  });
+</script>
+</body>
+</html>

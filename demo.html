@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+        document.write("Hello World");
+</script>
+ <script>    
+        document.write(7+5);
+</script>
+
+<br>
+<button type="button" onclick="document.getElementById('bulb').
+        src='images/bulb1.png'">Turn On</button>
+<button type="button" onclick="document.getElementById('bulb').
+        src='images/bulb2.png'">Turn Off</button>
+<br>
+<a href="#" onclick="return confirm('Are you sure you want to delete Alex from the data base?')">[delete]</a>
+<br>
+<script>
+    let x = 5;
+    let y = 7;
+    let z = x + y;
+    document.write("The sum is :"+ z);
+
+    var fullname = "Ian Njau";
+    var age = 25;
+    document.write("<br>My name is: " + fullname +" and I am " + age+ "years old.");
+
+    let score = 85;
+    score += 10;
+    document.write("<br>My score is: " + score);
+
+    const marks = 90; // marks is a constant variable and cannot be reassigned
+
+    document.write("<br>My marks are: " + marks);
+
+    //Arrays
+    let fruits = ["Apple", "Banana", "Orange"];
+    document.write("<br>My favorite fruit is: " + fruits.join(", "));
+
+    let food = prompt("Enter a food item:")
+
+    if(fruits.includes(food)) {
+        document.write("<br>" + food + "is in the fruits array.")
+
+    } else {
+        document.write("<br>" + food +  "is not in the array ")
+    }
+
+</script>
+<br>
+<br>
+<script>
+//loops
+//number of iterations to be peformed as long as the condtion is true
+//while loop
+document.write("<h4>While Loop</h4>");
+let i = 7;//intialize the loop variable
+while (i <= 13){// loop condition
+    document.write(i+ "<br>");
+    i+=2;
+    
+
+}
+//do-while loop
+document.write("<h4>do-while loop</h4>")
+let j=1;
+do{
+    document.write(j + "<br>");
+    j+=2;
+}while (j <= 13);
+
+//for loop
+document.write("<h4>For loop</h4>");
+for (let k = 12;k <=28;k+=2){
+    document.write(k + "<br>");
+}
+
+//for-of loop
+document.write("<h4>for-of loop</h4>");
+let colors = ["Red", "Green", "Blue"];
+for (let color of colors){
+    document.write(color + "<br>");
+}
+
+//for-in loop
+document.write("<h4>for-in loop</h4>");
+let person = {
+    name: "Ian",
+    age: 25,
+    city: "Nairobi"
+};
+for (let key in person){
+    document.write(key + ": " + person[key] + "<br>");
+}
+
+</script>
+<select>
+    <select name ="" id="">
+        <option value="">Select Year</option>
+        <script>
+            for (let year = currentyear; year <= 2024; year++){
+                document.write("<option value='" + year + "'>" + year + "</option>");
+            }
+        </script>
+    </select>
+</select>
+    
+</body>
+</html>

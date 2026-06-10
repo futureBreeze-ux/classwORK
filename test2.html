@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .error{
+        color: red;
+        font-weight: bold;
+        margin: 0;
+    }
+    .registration-form{
+        width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .registration-form h2{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .registration-form .field{
+        margin-bottom: 15px;
+    }
+    .registration-form label{
+        display: block;
+        margin-bottom: 5px;
+    }
+    .registration-form input{
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    .registration-form button{
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .registration-form button:hover{
+        background-color: #45a049;
+    }
+    
+</style>
+<body>
+    <!--
+<a href="#" onclick="document.getElementById('Showconten').textContent='Invalid Email'">Show Content</a>
+     <a href="#" onclick="document.getElementById('Showconten').textContent='Hide Content'">Hide Content</a>
+    <p id="Showconten" class="error"></p>
+    -->
+    <form action="" method="" id="registrationform" class="registration-form">
+    <h2>Registration Form</h2>
+    <div class="field">
+        <label for="fullname">Full Name:</label><br>
+        <input type="text" id="fullname" name="fullname" autofocus><br>
+    </div>
+    <div class="field">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+    </div>
+    <div class="field">
+        <label for="phone number ">Phone Number:</label><br>
+        <input type="tel" id="phone number " name="phone number"><br>
+    </div>
+    <div class="field">
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+    </div>
+    <div class="field">
+        <label for="confirm password">Confirm Password:</label><br>
+        <input type="password" id="confirm password" name="confirm password"><br>
+    </div>
+    <button type="submit">Register</button>
+
+    
+        
+
+    </form>
+</body>
+</html>
